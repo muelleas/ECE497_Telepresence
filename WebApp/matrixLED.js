@@ -7,6 +7,30 @@
 	var cList = [[],[],[],[],[],[],[],[]];
 	
 
+
+
+var video = document.querySelector("#videoElement");
+
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+
+if (navigator.getUserMedia) {
+	navigator.getUserMedia({video: true}, handleVideo, videoError);
+}
+
+function handleVideo(stream) {
+	video.src = window.URL.createObjectURL(stream);
+}
+
+function videoError(e){
+	console.log(e);
+}
+
+
+
+
+
+
+
 // Create a matrix of LEDs inside the <table> tags.
 var matrixData;
 for(var j=7; j>=0; j--) {
