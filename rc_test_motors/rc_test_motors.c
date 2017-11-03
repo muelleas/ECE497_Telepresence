@@ -34,72 +34,13 @@ int main(int argc, char *argv[]){
 	double duty = 0.5;
 	int ch = 1;
 	int c, in;
-	int all = 1;	// set to 0 if a motor (-m) argument is given 
+	int all = 1;	// set to 0 if a motor (-m) argument is given
+	char choice[5];
 	m_mode_t m_mode = DISABLED;
 	
 	// parse arguments
 	opterr = 0;
-	/*
-	while ((c = getopt(argc, argv, "m:d:fbs:h")) != -1){
-		switch (c){
-		case 'm': // motor channel option
-			in = atoi(optarg);
-			if(in<=4 && in>=1){
-				ch = in;
-				all = 0;
-			}
-			else{
-				printf("motor option must be from 1-4\n");
-				return -1;
-			}
-			break;
-		case 'd': // duty cycle option
-			if(m_mode!=DISABLED) print_usage();
-			duty = atof(optarg);
-			if(duty<=1 && duty >=-1){
-				m_mode = NORMAL;
-			}
-			else{
-				printf("duty cycle must be from -1 to 1\n");
-				return -1;
-			}
-			break;
-		case 'f':
-			if(m_mode!=DISABLED) print_usage();
-			m_mode = FREE;
-			break;
-		case 'b':
-			if(m_mode!=DISABLED) print_usage();
-			m_mode = BRAKE;
-			break;
-		case 's':
-			if(m_mode!=DISABLED) print_usage();
-			duty = atof(optarg);
-			if(duty<=1 && duty >=-1){
-				m_mode = SWEEP;
-			}
-			else{
-				printf("duty cycle must be from -1 to 1\n");
-				return -1;
-			}
-			break;
-		case 'h':
-			print_usage();
-			return -1;
-			break;
-		default:
-			print_usage();
-			return -1;
-			break;
-		}
-	}
 	
-	// if the user didn't give enough arguments, print usage
-	if(m_mode==DISABLED){
-		print_usage();
-		return -1;
-	}
-	*/
 	// initialize hardware first
 	if(rc_initialize()){
 		fprintf(stderr,"ERROR: failed to run rc_initialize(), are you root?\n");
@@ -115,45 +56,37 @@ int main(int argc, char *argv[]){
 	
 	//Does this alone work?
 	
-	printf("sending duty cycle %0.4f to motor %d\n", duty, ch);
-	rc_set_motor(ch,duty);
-	
-	/*
-	switch(m_mode){
-	case NORMAL:
-		if(all){
-			printf("sending duty cycle %0.4f to all motors\n", duty);
-			rc_set_motor_all(duty);
-		}
-		else{
-			printf("sending duty cycle %0.4f to motor %d\n", duty, ch);
+	printf("Start\n");
+	while(choice[0] != 'q'){
+		//while(choice[0] != '''){
+			gets(choice);
+		//}
+		printf("Char: %s",choice);
+		if(choice[0] == '1'){
+			printf("Forward\n");
 			rc_set_motor(ch,duty);
+			rc_set_motor(3,duty);
+		} else if(choice[0] == '2'){
+			printf("Backward\n");
+			rc_set_motor(ch,-0.5);
+			rc_set_motor(3,-0.5);
+			
+		} else if(choice[0] == '3'){
+			printf("Left\n");
+			rc_set_motor(ch,duty);
+			rc_set_motor(3,0);
+		} else if(choice[0] == '4'){
+			printf("Right\n");
+			rc_set_motor(3,duty);
+			rc_set_motor(ch,0);
+		}	else {
+			printf("sending duty cycle 0 to motor %d\n", ch);
+			rc_set_motor(ch,0);
+			rc_set_motor(3,0);
 		}
-		break;
-	case FREE:
-		if(all){
-			printf("Letting all motors free spin\n");
-			rc_set_motor_free_spin_all(duty);
-		}
-		else{
-			printf("Letting motor %d free spin\n", ch);
-			rc_set_motor_free_spin(ch);
-		}
-		break;
-	case BRAKE:
-		if(all){
-			printf("Braking all motors\n");
-			rc_set_motor_brake_all();
-		}
-		else{
-			printf("Braking motor %d\n", ch);
-			rc_set_motor_brake(ch);
-		}
-		break;
-	default:
-		break;
 	}
-	*/
+	printf("Exit\n");
+
 	// wait untill the user exits
 	while(rc_get_state()!=EXITING){
 		if(m_mode==SWEEP){
