@@ -6,3 +6,6 @@ serves a page with buttons for controlling the robot.  It sends its commands to
 Run in two windows.
 sudo ../python/balance.py < pipe  # Reads from the named pipe
 ./robotWebControl.py
+
+Hey Curtis, use this line
+<img style="-webkit-user-select: none;" src="http://192.168.6.2:8089/" width="600" height="448">
