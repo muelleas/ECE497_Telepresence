@@ -35,7 +35,8 @@ int main(int argc, char *argv[]){
 	int ch = 1;
 	int c, in;
 	int all = 1;	// set to 0 if a motor (-m) argument is given
-	char choice[5];
+	char choice[100];
+	char command[200];
 	m_mode_t m_mode = DISABLED;
 	
 	// parse arguments
@@ -79,7 +80,16 @@ int main(int argc, char *argv[]){
 			printf("Right\n");
 			rc_set_motor(3,duty);
 			rc_set_motor(ch,0);
-		}	else {
+		} else if(choice[0] == '~'){
+				strcpy(command, "../Display/newtext.sh \"");
+				memmove(&choice[0], &choice[1], strlen(choice) - 0);
+				strcat(command, choice);
+				strcat(command, "\"");
+				printf("%s\n", command);
+				system (command);
+				//system ("echo temppwd");
+				
+		} else {
 			printf("sending duty cycle 0 to motor %d\n", ch);
 			rc_set_motor(ch,0);
 			rc_set_motor(3,0);

@@ -76,6 +76,14 @@
             // socket.emit('button');
             socket.emit('button',  num);
         }
+        
+        function text() {
+            // socket.emit('button');
+            const content = document.getElementById("emit_data").value;
+            socket.emit('text',  content);
+        }
+        
+        
     </script>
 </head>
 <body>
@@ -89,15 +97,17 @@
           <td><button id="led2" onClick='button(4)'/>Right</button></td></tr>
           <tr><td></td><td><button id="led3" onClick='button(5)'/>Back</button></td><td></td></tr>
       </table>
-    <button id="led0" onClick='button(6)'/>Stop Balancing</button>
+    <button id="led0" onClick='text(47)'/>Stop Balancing</button>
     </div>
-    <img src="http://192.168.8.1:8090/?action=stream" height="240" width="320"/>
+    <img src="http://192.168.7.2:8081/" alt="http://192.168.7.2:8081/">
+    <!--- <img src="http://192.168.8.1:8081/?action=stream" height="240" width="320"/> -->
     <!--<img src="http://10.0.4.105:8090/?action=stream" height="240" width="320"/>-->
     <p>Latency: <b><span id="ping-pong"></span>ms</b></p>
     <h4>Send:</h4>
     <form id="emit" method="POST" action='#'>
         <input type="text" name="emit_data" id="emit_data" placeholder="Message">
-        <input type="submit" value="Echo">
+        <!--<input type="submit" value="Echo" onClick='button(123)'/> this one works -->
+        <input type="submit" value="Echo" onClick='text()'/>
     </form>
 
     <form id="disconnect" method="POST" action="#">
