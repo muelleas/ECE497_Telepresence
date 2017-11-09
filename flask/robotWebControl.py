@@ -76,9 +76,24 @@ def button(num):
          {'data': 'button ', 'count': session['receive_count']})
     print("Button")
     print(num)
-    fd.write(buttons[int(num)])
+    if num > 9:
+        fd.write("It works!!!")
+    else:
+        fd.write(buttons[int(num)])
     fd.flush()
     # sys.exit()
+    
+@socketio.on('text')
+def text(content):
+    session['receive_count'] = session.get('receive_count', 0) + 1
+    emit('my_response',
+         {'data': 'text ', 'count': session['receive_count']})
+    print("text")
+    print(content)
+    fd.write('~' + content + '\n')
+    fd.flush()
+    # sys.exit()
+
 
 @socketio.on('connect')
 def test_connect():
