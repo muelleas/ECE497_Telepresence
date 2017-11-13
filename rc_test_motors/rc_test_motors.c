@@ -58,25 +58,25 @@ int main(int argc, char *argv[]){
 	//Does this alone work?
 	
 	printf("Start\n");
-	while(choice[0] != 'q'){
+	while(choice[0] != 'E'){
 		//while(choice[0] != '''){
 			gets(choice);
 		//}
 		printf("Char: %s",choice);
-		if(choice[0] == '1'){
+		if(choice[0] == 'F'){
 			printf("Forward\n");
 			rc_set_motor(ch,duty);
 			rc_set_motor(3,duty);
-		} else if(choice[0] == '2'){
+		} else if(choice[0] == 'B'){
 			printf("Backward\n");
 			rc_set_motor(ch,-0.5);
 			rc_set_motor(3,-0.5);
 			
-		} else if(choice[0] == '3'){
+		} else if(choice[0] == 'L'){
 			printf("Left\n");
 			rc_set_motor(ch,duty);
 			rc_set_motor(3,0);
-		} else if(choice[0] == '4'){
+		} else if(choice[0] == 'R'){
 			printf("Right\n");
 			rc_set_motor(3,duty);
 			rc_set_motor(ch,0);
@@ -89,6 +89,10 @@ int main(int argc, char *argv[]){
 				system (command);
 				//system ("echo temppwd");
 				
+		} else if(choice[0] == 'S') {
+			printf("sending duty cycle 0 to motor %d\n", ch);
+			rc_set_motor(ch,0);
+			rc_set_motor(3,0);
 		} else {
 			printf("sending duty cycle 0 to motor %d\n", ch);
 			rc_set_motor(ch,0);

@@ -14,18 +14,18 @@ thread = None
 
 
 #Changing all of these
-Forward    = "1\n"
-Backward  = "2\n"
-Left = "3\n"
-Right  = "4\n"
-DEL         = "q\n"
-END         = "q\n"
-SPACE       = "q\n "
-START_BAL   = "q\n"
-STOP_BAL    = "q\n"
+Forward    = "F\n"
+Backward  = "B\n"
+Left = "L\n"
+Right  = "R\n"
+DEL         = "D\n"
+END         = "E\n"
+Stop       = "S\n "
+START_BAL   = "St\n"
+STOP_BAL    = "Sp\n"
 
-buttons = [START_BAL, Forward, Left, SPACE, 
-            Backward, Right, STOP_BAL, DEL, END]
+buttons = [START_BAL, Forward, Left, Stop, 
+            Right, Backward, STOP_BAL, DEL, END]
 
 # "pip" is a named pipe that we right to and python/balance.py reads from
 fd = open("pipe", 'w')
