@@ -1,1 +1,0 @@
-# ECE497_Telepresence
